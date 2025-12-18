@@ -16,8 +16,23 @@
       <div class="container hero-inner">
         <div class="hero-text">
           <p class="kicker">ASMR на заказ</p>
+          
           <h1>Персональное ASMR-видео для тебя</h1>
           <p class="lead">
+                      <div class="audio-control audio-prominent">
+            <button
+              class="audio-btn audio-btn-big"
+              id="audioToggle"
+              type="button"
+              aria-label="Включить или выключить атмосферный звук"
+            >
+              🔊 музыка для погружения
+            </button>
+
+            <audio id="bgAudio" loop autoplay muted preload="auto">
+              <source src="audio/ambient.mp3" type="audio/mpeg" />
+            </audio>
+          </div>
             Ты выбираешь формат, пишешь пожелания — я записываю спокойное видео
             в мягкой атмосфере и отправляю тебе готовый результат. После оплаты
             твоё видео будет создано в течение 10 дней.
@@ -31,11 +46,10 @@
               Поддержать творчество
             </button>
           </div>
-
           <div class="glow-badges">
-            <div class="glow-badge">Тихий голос</div>
-            <div class="glow-badge">Медленный темп</div>
-            <div class="glow-badge">Лично для тебя</div>
+            <div >Тихий голос  -> </div>
+            <div >Медленный темп  -> </div>
+            <div >Лично для тебя</div>
           </div>
         </div>
 

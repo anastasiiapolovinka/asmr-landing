@@ -6,7 +6,6 @@
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.7);
 
-  /* Lightened surfaces for more contrast */
   --card: rgba(22, 22, 55, 0.72);
   --card2: rgba(22, 22, 55, 0.62);
   --panel: rgba(26, 26, 68, 0.78);
@@ -116,7 +115,7 @@ body::after {
   }
 }
 
-/* HERO */
+/* ===== HERO ===== */
 .hero {
   padding: 30px 0 18px;
 }
@@ -142,6 +141,9 @@ body::after {
   font-size: 38px;
   line-height: 1.12;
   letter-spacing: -0.02em;
+  color: #e9e3ff;
+  text-shadow: 0 0 18px rgba(188, 167, 255, 0.18),
+    0 0 32px rgba(188, 167, 255, 0.1);
 }
 
 .lead {
@@ -155,7 +157,7 @@ body::after {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 /* Hero visual */
@@ -193,7 +195,7 @@ body::after {
   transform: scale(1.02);
 }
 
-/* ASMR badges (понятные) */
+/* ===== badges ===== */
 .glow-badges {
   display: flex;
   flex-wrap: wrap;
@@ -237,7 +239,6 @@ body::after {
   );
   animation-duration: 6.8s;
 }
-
 .glow-badge:nth-child(3) {
   border-color: rgba(136, 199, 255, 0.2);
 }
@@ -262,7 +263,7 @@ body::after {
   }
 }
 
-/* Buttons */
+/* ===== buttons ===== */
 .btn-primary,
 .btn-secondary {
   display: inline-flex;
@@ -274,9 +275,14 @@ body::after {
   cursor: pointer;
   text-decoration: none;
   font-size: 16px;
+  user-select: none;
+
+  position: relative;
+  overflow: hidden;
+
   transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease,
     border-color 0.2s ease;
-  user-select: none;
+
   background: linear-gradient(
     135deg,
     rgba(188, 167, 255, 0.95),
@@ -287,60 +293,88 @@ body::after {
     0 22px 70px rgba(255, 185, 225, 0.12);
 }
 
+/* light “flare” */
+.btn-primary::after,
+.btn-secondary::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.28),
+    transparent 55%
+  );
+  opacity: 0;
+  transform: translateX(-12%);
+  transition: opacity 0.25s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+
 .btn-primary:hover,
 .btn-secondary:hover {
   transform: translateY(-1px);
+  background: linear-gradient(
+    135deg,
+    rgba(136, 199, 255, 0.95),
+    rgba(188, 167, 255, 0.88)
+  );
+  border-color: rgba(136, 199, 255, 0.25);
   box-shadow: 0 28px 80px rgba(188, 167, 255, 0.22),
     0 28px 80px rgba(255, 185, 225, 0.16);
 }
 
-/* .btn-secondary {
-  background: #2f57f90f;
-  color: rgba(255, 255, 255, 0.88);
-  border-color: rgba(188, 167, 255, 0.22);
-  box-shadow: var(--shadow2);
-} */
+.btn-primary:hover::after,
+.btn-secondary:hover::after {
+  opacity: 0.35;
+  transform: translateX(12%);
+}
 
-/* .btn-secondary:hover {
-  transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.08);
-} */
+.btn-primary:active,
+.btn-secondary:active {
+  transform: translateY(1px) scale(0.99);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
 
-/* Formats grid: 1 column mobile, 2 columns desktop */
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible,
+details:focus-within,
+.audio-btn-big:focus-visible,
+.copy-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(188, 167, 255, 0.28),
+    0 0 0 8px rgba(255, 185, 225, 0.12), var(--shadow2);
+}
+
+/* ===== layout blocks ===== */
 .formats-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 16px;
 }
 
-/* Format cards */
+/* cards */
 .card {
   position: relative;
-  background: var(--card);
-  border: 1px solid var(--borderSoft);
   border-radius: var(--radius2);
   padding: 14px;
-  box-shadow: var(--shadow);
   overflow: hidden;
-}
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.14);
 
-.card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: inherit;
   background: radial-gradient(
-      520px 220px at 12% 10%,
-      rgba(188, 167, 255, 0.18),
+      520px 220px at 15% 10%,
+      rgba(188, 167, 255, 0.12),
       transparent 60%
     ),
     radial-gradient(
-      520px 220px at 88% 22%,
-      rgba(255, 185, 225, 0.12),
+      520px 220px at 85% 25%,
+      rgba(255, 185, 225, 0.08),
       transparent 62%
-    );
-  pointer-events: none;
-  opacity: 0.9;
+    ),
+    rgba(34, 34, 78, 0.78);
+
+  transition: transform 0.18s ease, box-shadow 0.22s ease,
+    border-color 0.22s ease, background 0.25s ease;
 }
 
 .card::after {
@@ -350,6 +384,16 @@ body::after {
   border-radius: inherit;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   pointer-events: none;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.62),
+    0 0 0 1px rgba(188, 167, 255, 0.18);
+}
+
+.card:hover::after {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
 
 .card-img {
@@ -363,10 +407,12 @@ body::after {
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.38);
 }
 
-.card h3 {
-  margin: 0 0 8px;
+.card h3,
+.panel h3,
+.gift-content h3 {
+  margin: 0 0 10px;
+  color: #f0ecff;
   font-size: 16px;
-  letter-spacing: -0.01em;
 }
 
 .card p {
@@ -375,7 +421,7 @@ body::after {
   font-size: 14px;
 }
 
-/* Price */
+/* price */
 .price-box {
   background: var(--card2);
   border: 1px solid var(--borderSoft);
@@ -397,9 +443,10 @@ body::after {
   border-top: none;
 }
 
-.price-title {
+.price-title,
+summary {
   font-weight: 650;
-  margin-bottom: 2px;
+  color: #f3eeff;
 }
 
 .price-sub {
@@ -413,7 +460,7 @@ body::after {
   color: rgba(255, 255, 255, 0.9);
 }
 
-/* Panels */
+/* panels */
 .two-col {
   display: grid;
   grid-template-columns: 1fr;
@@ -430,25 +477,6 @@ body::after {
   overflow: hidden;
 }
 
-.panel::before {
-  content: "";
-  position: absolute;
-  inset: -2px;
-  border-radius: inherit;
-  background: radial-gradient(
-      560px 220px at 18% 18%,
-      rgba(188, 167, 255, 0.16),
-      transparent 60%
-    ),
-    radial-gradient(
-      560px 220px at 85% 30%,
-      rgba(255, 185, 225, 0.1),
-      transparent 62%
-    );
-  pointer-events: none;
-  opacity: 0.95;
-}
-
 .panel::after {
   content: "";
   position: absolute;
@@ -458,23 +486,26 @@ body::after {
   pointer-events: none;
 }
 
-.panel h3 {
-  margin: 0 0 10px;
-  font-size: 16px;
-}
-
 details {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
   padding: 8px 10px;
   margin-bottom: 10px;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 summary {
   cursor: pointer;
-  font-weight: 650;
-  color: rgba(255, 255, 255, 0.9);
+}
+
+summary:hover {
+  color: rgba(255, 255, 255, 0.98);
+}
+
+details:hover {
+  border-color: rgba(188, 167, 255, 0.22);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .details-body {
@@ -485,10 +516,16 @@ summary {
 
 .template {
   background: rgba(255, 255, 255, 0.06);
-  border: 1px dashed rgba(188, 167, 255, 0.26);
+  border: 1px dashed rgba(255, 185, 225, 0.22);
   border-radius: 16px;
   padding: 10px 12px;
   margin: 10px 0 14px;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.template:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(188, 167, 255, 0.3);
 }
 
 .template pre {
@@ -505,7 +542,7 @@ summary {
   color: rgba(255, 255, 255, 0.62);
 }
 
-/* Gift */
+/* gift */
 .gift-block {
   display: grid;
   grid-template-columns: 1fr;
@@ -523,18 +560,7 @@ summary {
   opacity: 0.96;
 }
 
-.gift-content h3 {
-  margin: 0 0 10px;
-}
-
-.soft-list {
-  margin: 0 0 14px;
-  padding-left: 18px;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: 14px;
-}
-
-/* Footer */
+/* footer */
 .footer {
   padding: 20px 0 28px;
 }
@@ -546,185 +572,8 @@ summary {
   text-align: center;
 }
 
-/* Responsive */
-@media (min-width: 860px) {
-  .hero-inner {
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 22px;
-  }
-  .hero-image {
-    height: 360px;
-  }
-
-  /* вот это и делает 2 в ряд */
-  .formats-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .two-col {
-    grid-template-columns: 1.1fr 0.9fr;
-  }
-  .gift-block {
-    grid-template-columns: 0.9fr 1.1fr;
-  }
-  .gift-img {
-    height: 320px;
-  }
-}
-
-/* ====== EXTRA INTERACTION + MORE CONTRAST ====== */
-
-/* Кнопки: меняем цвет/градиент на hover + активное нажатие */
-.btn-primary,
-.btn-secondary {
-  position: relative;
-  overflow: hidden;
-}
-
-/* лёгкий “световой блик”, чтобы кнопка выглядела живой */
-.btn-primary::after,
-.btn-secondary::after {
-  content: "";
-  position: absolute;
-  inset: -40%;
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.28),
-    transparent 55%
-  );
-  opacity: 0;
-  transform: translateX(-12%);
-  transition: opacity 0.25s ease, transform 0.35s ease;
-  pointer-events: none;
-}
-
-.btn-primary:hover::after,
-.btn-secondary:hover::after {
-  opacity: 0.35;
-  transform: translateX(12%);
-}
-
-/* меняем цвет/градиент */
-.btn-primary:hover,
-.btn-secondary:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(136, 199, 255, 0.95),
-    rgba(188, 167, 255, 0.88)
-  );
-  color: rgba(10, 10, 18, 0.95);
-  border-color: rgba(136, 199, 255, 0.25);
-}
-
-/* .btn-secondary:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(188, 167, 255, 0.1)
-  );
-  border-color: rgba(255, 185, 225, 0.3);
-} */
-
-/* активное нажатие */
-.btn-primary:active,
-.btn-secondary:active {
-  transform: translateY(1px) scale(0.99);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-
-/* фокус с клавиатуры (важно для “кликабельности”) */
-.btn-primary:focus-visible,
-.btn-secondary:focus-visible,
-details:focus-within {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(188, 167, 255, 0.28),
-    0 0 0 8px rgba(255, 185, 225, 0.12), var(--shadow2);
-}
-
-/* Карточки форматов: фон светлее/контрастнее + hover подсветка */
-.card {
-  background: radial-gradient(
-      520px 220px at 15% 10%,
-      rgba(188, 167, 255, 0.12),
-      transparent 60%
-    ),
-    radial-gradient(
-      520px 220px at 85% 25%,
-      rgba(255, 185, 225, 0.08),
-      transparent 62%
-    ),
-    rgba(34, 34, 78, 0.78); /* <- светлее и отличается от общего фона */
-  border: 1px solid rgba(255, 255, 255, 0.14);
-}
-
-/* hover: “ламповая” подсветка и лёгкий подъём */
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.62),
-    0 0 0 1px rgba(188, 167, 255, 0.18);
-}
-
-.card {
-  transition: transform 0.18s ease, box-shadow 0.22s ease,
-    border-color 0.22s ease, background 0.25s ease;
-}
-
-/* hover: усиление свечения по краю */
-.card:hover::after {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-}
-
-/* “кликабельность” для интерактивных блоков (details/summary) */
-summary:hover {
-  color: rgba(255, 255, 255, 0.98);
-}
-
-details:hover {
-  border-color: rgba(188, 167, 255, 0.22);
-  background: rgba(255, 255, 255, 0.06);
-  transition: background 0.2s ease, border-color 0.2s ease;
-}
-
-/* Если у тебя есть блок с примером сообщения (template) — делаем его чуть активнее */
-.template {
-  border-color: rgba(255, 185, 225, 0.22);
-}
-
-.template:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(188, 167, 255, 0.3);
-}
-
-/* ====== HEADINGS COLOR TUNING ====== */
-
-/* Основной заголовок (Hero) */
-.hero-text h1 {
-  color: #e9e3ff;
-  text-shadow: 0 0 18px rgba(188, 167, 255, 0.18),
-    0 0 32px rgba(188, 167, 255, 0.1);
-}
-
-/* Заголовки секций */
-.section h2 {
-  color: #ded6ff;
-  text-shadow: 0 0 14px rgba(188, 167, 255, 0.16);
-}
-
-/* Заголовки карточек */
-.card h3,
-.panel h3,
-.gift-content h3 {
-  color: #f0ecff;
-}
-
-/* Подзаголовки / акцентные строки */
-.price-title,
-summary {
-  color: #f3eeff;
-}
-
 /* ===== Copy button ===== */
-.copy-row{
+.copy-row {
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 10px;
@@ -732,71 +581,191 @@ summary {
   margin-top: 10px;
 }
 
-.copy-row .label{
-  color: rgba(255,255,255,.70);
+.copy-row .label {
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
 }
 
-.copy-value{
+.copy-value {
   display: inline-block;
   padding: 8px 10px;
   border-radius: 12px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.10);
-  color: rgba(255,255,255,.92);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
   font-size: 14px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.copy-btn{
+.copy-btn {
   appearance: none;
-  border: 1px solid rgba(188,167,255,.26);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.90);
+  border: 1px solid rgba(188, 167, 255, 0.26);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
   padding: 9px 12px;
   border-radius: 999px;
   cursor: pointer;
   font-size: 14px;
-  transition: transform .15s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
-  box-shadow: 0 14px 40px rgba(0,0,0,.35);
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease,
+    border-color 0.2s ease;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
 }
 
-.copy-btn:hover{
+.copy-btn:hover {
   transform: translateY(-1px);
-  background: linear-gradient(135deg, rgba(136,199,255,.14), rgba(255,185,225,.10));
-  border-color: rgba(255,185,225,.32);
-  box-shadow: 0 18px 52px rgba(0,0,0,.45),
-              0 0 0 1px rgba(188,167,255,.14);
+  background: linear-gradient(
+    135deg,
+    rgba(136, 199, 255, 0.14),
+    rgba(255, 185, 225, 0.1)
+  );
+  border-color: rgba(255, 185, 225, 0.32);
+  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(188, 167, 255, 0.14);
 }
 
-.copy-btn:active{
-  transform: translateY(1px) scale(.99);
+.copy-btn:active {
+  transform: translateY(1px) scale(0.99);
 }
 
-.copy-btn:focus-visible{
-  outline: none;
-  box-shadow:
-    0 0 0 3px rgba(188,167,255,.28),
-    0 0 0 8px rgba(255,185,225,.12),
-    0 14px 40px rgba(0,0,0,.35);
+.copy-btn.is-copied {
+  background: linear-gradient(
+    135deg,
+    rgba(188, 167, 255, 0.92),
+    rgba(255, 185, 225, 0.8)
+  );
+  color: rgba(10, 10, 18, 0.95);
+  border-color: rgba(136, 199, 255, 0.25);
 }
 
-/* состояние "Скопировано" */
-.copy-btn.is-copied{
-  background: linear-gradient(135deg, rgba(188,167,255,.92), rgba(255,185,225,.80));
-  color: rgba(10,10,18,.95);
-  border-color: rgba(136,199,255,.25);
+/* ===== AUDIO BLOCK ===== */
+.audio-prominent {
+  margin: 18px 0 12px;
 }
 
-/* На узких экранах — в столбик */
-@media (max-width: 520px){
-  .copy-row{
+.audio-btn-big {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 14px 22px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+
+  color: rgba(255, 255, 255, 0.94);
+
+  background: linear-gradient(
+    135deg,
+    rgba(188, 167, 255, 0.22),
+    rgba(255, 185, 225, 0.14)
+  );
+  border: 1px solid rgba(255, 185, 225, 0.5);
+  border-radius: 999px;
+
+  box-shadow: 0 26px 90px rgba(188, 167, 255, 0.14),
+    0 26px 90px rgba(255, 185, 225, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+
+  transition: transform 0.18s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease, background 0.25s ease;
+}
+
+.audio-btn-big:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(
+    135deg,
+    rgba(136, 199, 255, 0.22),
+    rgba(188, 167, 255, 0.18)
+  );
+  border-color: rgba(136, 199, 255, 0.6);
+  box-shadow: 0 34px 110px rgba(188, 167, 255, 0.18),
+    0 34px 110px rgba(255, 185, 225, 0.12),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+}
+
+.audio-btn-big:active {
+  transform: translateY(1px) scale(0.99);
+}
+
+/* state ON */
+.audio-btn-big.is-on {
+  background: linear-gradient(
+    135deg,
+    rgba(136, 199, 255, 0.28),
+    rgba(188, 167, 255, 0.2)
+  );
+  border-color: rgba(136, 199, 255, 0.7);
+}
+
+/* hint */
+.audio-hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  max-width: 44ch;
+}
+
+/* pulse only when class is added */
+@keyframes audioPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 26px 90px rgba(188, 167, 255, 0.18),
+      0 26px 90px rgba(255, 185, 225, 0.12),
+      0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  }
+  50% {
+    transform: translateY(-1px);
+    box-shadow: 0 40px 140px rgba(188, 167, 255, 0.28),
+      0 40px 140px rgba(255, 185, 225, 0.18),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset;
+  }
+}
+
+.audio-btn-big.audio-pulse {
+  animation: audioPulse 1.25s ease-in-out infinite;
+}
+
+/* responsive */
+@media (min-width: 860px) {
+  .hero-inner {
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 22px;
+  }
+
+  .hero-image {
+    height: 360px;
+  }
+
+  .formats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .two-col {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .gift-block {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  .gift-img {
+    height: 320px;
+  }
+}
+
+@media (max-width: 520px) {
+  .copy-row {
     grid-template-columns: 1fr;
   }
-  .copy-btn{
+  .copy-btn {
     width: fit-content;
   }
 }
