@@ -27,7 +27,9 @@ document.addEventListener("DOMContentLoaded", () => {
   function buildMailto(subject, body) {
     const s = encodeURIComponent(subject);
     const b = encodeURIComponent(body);
-    return `mailto:${EMAIL}?subject=${s}&body=${b}`;
+    const to = encodeURIComponent(EMAIL);
+
+    return `mailto:${EMAIL}?to=${to}&subject=${s}&body=${b}`;
   }
 
   const orderTpl = document.getElementById("orderTemplate");
